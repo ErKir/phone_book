@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "phone-book"
+version = "0.1.0"
+description = "a simple console app that implements KRUD"
+authors = ["ErKir <kirillerohin@gmail.com>"]
+readme = "README.md"
+packages = [{include = "phone_book"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.scripts]
+phone-book = "phone_book.scripts.phone_book:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
