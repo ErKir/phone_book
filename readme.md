@@ -1,3 +1,3 @@
 # Phone book
 
-## a simple console that implements KRUD
+## a simple console ap that implements KRUD
