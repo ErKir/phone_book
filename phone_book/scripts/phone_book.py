@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 
-from cli import cli
+from phone_book.cli import cli
+from phone_book.scripts.get_phones import get_phones
 
 
 def main():
