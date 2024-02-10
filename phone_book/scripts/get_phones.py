@@ -1,6 +1,7 @@
+import os
 import json
 
-path_to_book = '/home/kirill/test_tasks/phone_book/phone_book/phones/phones.json'
+path_to_book = os.path.abspath('phone_book/phones/phones.json')
 
 
 def get_phones(ops):

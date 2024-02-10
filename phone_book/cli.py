@@ -9,11 +9,11 @@ def cli():
         description=desc,
     )
 
-    parser.add_argument('operation', type=str,
+    parser.add_argument('-o', '--operation', type=str, default='read',
                         help=("operations for phone book"
                               " (add, read, update: (*fields), find: (*fields))"
                               ),
-                        default='read')
+                        )
 
     args = parser.parse_args()
     return args
