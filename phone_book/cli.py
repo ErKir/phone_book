@@ -1,19 +1,25 @@
-import argparse
+import prompt
+from phone_book.scripts.get_phones import get_phones
 
 
 def cli():
-    desc = 'A simple console app that implements KRUD for phone book'
-
-    parser = argparse.ArgumentParser(
-        prog='Phone book',
-        description=desc,
+    query = prompt.string(
+        'Please enter a query for phone book\n'
+        'Can be: read, to see the phone book;\n'
+        '        add, to add a new number;\n'
+        '        find, to search for a number;\n'
+        '        update, to change an existing one;\n'
     )
+    match query:
+        case 'read':
+            print(get_phones(query))
+        case _:
+            print('Invalid query!')
+    return
 
-    parser.add_argument('-o', '--operation', type=str, default='read',
-                        help=("operations for phone book"
-                              " (add, read, update: (*fields), find: (*fields))"
-                              ),
-                        )
 
-    args = parser.parse_args()
-    return args
+"""
+на промптах из первого проекта можно дописать логику круда
+поочередно спрашивать фио и тел, и складывать в словарь,
+словарь передавать в джейс
+"""

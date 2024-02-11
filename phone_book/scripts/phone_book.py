@@ -7,7 +7,7 @@ from phone_book.scripts.get_phones import get_phones
 
 def main():
     user_input = cli()
-    print(get_phones(user_input.operation)
+    print(get_phones(user_input.query)
           )
 
 

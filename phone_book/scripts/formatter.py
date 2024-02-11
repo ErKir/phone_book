@@ -1,32 +1,14 @@
-def plain(tree):
-    def iter(current_item, prop_names):
+def plain(tree: dict) -> str:
+    def callback(item):
+        id = item[0]
+        data = item[1]
+        result = f'{id} '
+        result += f'Name: {data["last_name"]} {data["first_name"]} '
+        result += f'{data["patronymic"]} '
+        result += f'Organization: {data["organization"]}; '
+        result += f'Work tel.: {data["work_telephone"]}; '
+        result += f'Personal tel.: {data["personal_telephone"]};'
+        return result
 
-        def callback(obj):
-            name = obj['name']
-            state = obj['state']
-            current_prop_name = [*prop_names, name]
-            match(state):
-                case 'added':
-                    result = f"Property '{'.'.join(current_prop_name)}'"
-                    result += f' was {state} with value: '
-                    result += f'{stringify(obj["value"])}'
-                    return result
-                case 'removed':
-                    result = f"Property '{'.'.join(current_prop_name)}'"
-                    result += f" was {state}"
-                    return result
-                case 'updated':
-                    result = f"Property '{'.'.join(current_prop_name)}'"
-                    result += f' was {state}. From {stringify(obj["value1"])}'
-                    result += f' to {stringify(obj["value2"])}'
-                    return result
-                case 'nested':
-                    return iter(obj['children'], current_prop_name)
-                case 'unchanged':
-                    return ''
-
-        lines = list(map(callback, current_item))
-        strings = list(filter(lambda string: string != '', lines))
-        return '\n'.join(strings)
-
-    return iter(tree, [])
+    lines = list(map(callback, tree.items()))
+    return '\n'.join(lines)
