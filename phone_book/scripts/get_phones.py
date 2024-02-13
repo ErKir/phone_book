@@ -2,7 +2,7 @@ import os
 import json
 from phone_book.scripts.formatter import plain
 
-path_to_book = os.path.abspath('phone_book/phones/phones.json')
+BOOK = os.path.abspath('phone_book/phones/phones.json')
 
 
 def get_id(phones) -> str:
@@ -17,23 +17,30 @@ def get_id(phones) -> str:
     return current_id
 
 
-def add_item(phone_book, new_item):
-    current_id = get_id(phone_book)
-    print(new_item, current_id)
-    phone_book[current_id] = new_item
-    json_object = json.dumps(phone_book, indent=4)
-    return json_object
+def add_item(src, new_item):
+    parsed_book = read(src)
+    current_id = get_id(parsed_book)
+    with open(src, 'w') as data:
+        print(new_item, current_id)
+        parsed_book[current_id] = new_item
+        json_object = json.dumps(parsed_book, indent=4)
+        data.write(json_object)
+    return parsed_book
+
+
+def read(src) -> str:
+    with open(src) as data:
+        parsed_book = json.load(data)
+        return parsed_book
 
 
 def get_phones(query: str, opts={}) -> str:
-    with open(path_to_book) as data:
-        parsed_book = json.load(data)
-        match query:
-            case 'add':
-                new_data = add_item(parsed_book, opts)
-                data.write(new_data)
-                return plain(new_data)
-            case 'read':
-                return plain(parsed_book)
-
-    return parsed_book
+    result = ''
+    match query:
+        case 'add':
+            result = add_item(BOOK, opts)
+        case 'read':
+            result = read(BOOK)
+        case _:
+            return Exception
+    return plain(result)
