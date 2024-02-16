@@ -24,7 +24,7 @@ def query_builder(input_opt=True) -> dict:
 def get_update_data():
     id_contact = prompt.string('Enter contact id (No) you want to update: ')
     if is_contact_exist(id_contact):
-        return query_builder()
+        return id_contact, query_builder()
     else:
         print('Data not found. Please enter a correct id (No)\n')
 
@@ -49,6 +49,7 @@ def cli():
             case 'update':
                 print(get_phones('read'))
                 print(get_phones(query, get_update_data()))
+                print('Data successfully changed!')
             case 'exit':
                 return True
             case _:
